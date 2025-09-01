@@ -10,5 +10,5 @@ export enum Exceptions {
 export enum RolesE {
   ADMIN = 'admin',
   CLIeNET = 'client',
-  VENDOR = 'vendor',
+  // VENDOR = 'vendor', // if needed 
 }
