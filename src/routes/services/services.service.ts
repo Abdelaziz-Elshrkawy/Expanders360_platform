@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Service } from './entities/service.entity';
+import { Service } from 'src/entities/mysql/service.entity';
 
 @Injectable()
 export class ServicesService {
@@ -10,7 +10,7 @@ export class ServicesService {
     private readonly serviceRepository: Repository<Service>,
   ) {}
 
-  async create(serviceData: Partial<Service>): Promise<Service> {
+  async create(serviceData: Partial<Service>): Promise<Service | null> {
     const service = this.serviceRepository.create(serviceData);
     return this.serviceRepository.save(service);
   }
@@ -19,11 +19,14 @@ export class ServicesService {
     return this.serviceRepository.find();
   }
 
-  async findOne(id: number): Promise<Service> {
-    return this.serviceRepository.findOne(id);
+  async findOne(id: number): Promise<Service | null> {
+    return await this.serviceRepository.findOne({ where: { id } });
   }
 
-  async update(id: number, serviceData: Partial<Service>): Promise<Service> {
+  async update(
+    id: number,
+    serviceData: Partial<Service>,
+  ): Promise<Service | null> {
     await this.serviceRepository.update(id, serviceData);
     return this.findOne(id);
   }

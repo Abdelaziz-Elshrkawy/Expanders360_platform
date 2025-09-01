@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Project } from '../projects/entities/project.entity';
-import { Vendor } from '../vendors/entities/vendor.entity';
-import { Match } from '../matches/entities/match.entity';
-import { ConfigModule } from '@nestjs/config';
+import { Match } from 'src/entities/mysql/match.entity';
+import { Project } from 'src/entities/mysql/project.entity';
+import { Vendor } from 'src/entities/mysql/vendor.entity';
+import { EmailService } from './emails.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Vendor, Match]), ConfigModule],
-  providers: [TasksService],
+  imports: [TypeOrmModule.forFeature([Project, Vendor, Match])],
+  providers: [TasksService, EmailService],
 })
 export class TasksModule {}

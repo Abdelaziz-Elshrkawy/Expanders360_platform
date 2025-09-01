@@ -8,17 +8,19 @@ export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
   @Post()
-  create(@Body() createServiceDto: CreateServiceDto): Promise<Service> {
+  async create(
+    @Body() createServiceDto: CreateServiceDto,
+  ): Promise<Service | null> {
     return this.servicesService.create(createServiceDto);
   }
 
   @Get()
-  findAll(): Promise<Service[]> {
+  async findAll(): Promise<Service[]> {
     return this.servicesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Service> {
+  async findOne(@Param('id') id: string): Promise<Service | null> {
     return this.servicesService.findOne(+id);
   }
 }

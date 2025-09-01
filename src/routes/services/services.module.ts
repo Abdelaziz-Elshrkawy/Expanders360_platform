@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Service } from './entities/service.entity';
+import { Service } from 'src/entities/mysql/service.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Service])],

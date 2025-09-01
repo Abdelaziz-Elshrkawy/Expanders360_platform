@@ -20,7 +20,7 @@ export const { doubleCsrfProtection, generateCsrfToken } = doubleCsrf({
 
 void (async function () {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3100);
 
   app.enableCors({
     // for cookies

@@ -25,6 +25,9 @@ export const {
   database_username,
   database_password,
 
+  // mongoose uri
+  mongodb_uri,
+
   // jwt
   jwt_secret,
   jwt_expiration_period,

@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateVendorDto, UpdateVendorDto } from 'src/dtos/vendors.dto';
+import { Vendor } from 'src/entities/mysql/vendor.entity';
 import { Repository } from 'typeorm';
-import { Vendor } from './entities/vendor.entity';
-import { CreateVendorDto } from './dto/create-vendor.dto';
-import { UpdateVendorDto } from './dto/update-vendor.dto';
 
 @Injectable()
 export class VendorsService {
@@ -21,13 +20,18 @@ export class VendorsService {
     return this.vendorsRepository.find();
   }
 
-  async findOne(id: number): Promise<Vendor> {
-    return this.vendorsRepository.findOne(id);
+  async findOne(id: number): Promise<Vendor | null> {
+    return await this.vendorsRepository.findOne({
+      where: { id },
+    });
   }
 
-  async update(id: number, updateVendorDto: UpdateVendorDto): Promise<Vendor> {
+  async update(
+    id: number,
+    updateVendorDto: UpdateVendorDto,
+  ): Promise<Vendor | null> {
     await this.vendorsRepository.update(id, updateVendorDto);
-    return this.findOne(id);
+    return await this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {

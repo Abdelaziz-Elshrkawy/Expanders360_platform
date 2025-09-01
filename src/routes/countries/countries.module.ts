@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Country } from './entities/country.entity';
+import { Country } from 'src/entities/mysql/country.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Country])],

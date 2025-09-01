@@ -1,12 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from 'cron';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Project } from '../projects/entities/project.entity';
-import { Vendor } from '../vendors/entities/vendor.entity';
-import { Match } from '../matches/entities/match.entity';
-import { ConfigService } from '@nestjs/config';
-import { EmailService } from '../email/email.service'; // Assuming you have an EmailService
+import { Project } from 'src/entities/mysql/project.entity';
+import { EmailService } from 'src/tasks/emails.service';
+import { Match } from 'src/entities/mysql/match.entity';
+import { Vendor } from 'src/entities/mysql/vendor.entity';
 
 @Injectable()
 export class TasksService {
@@ -19,8 +18,7 @@ export class TasksService {
     private vendorRepository: Repository<Vendor>,
     @InjectRepository(Match)
     private matchRepository: Repository<Match>,
-    private configService: ConfigService,
-    private emailService: EmailService, // Inject EmailService
+    private emailService: EmailService,
   ) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)

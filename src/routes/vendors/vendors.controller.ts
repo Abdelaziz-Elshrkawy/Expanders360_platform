@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { VendorsService } from './vendors.service';
-import { CreateVendorDto } from './dto/create-vendor.dto';
-import { Vendor } from './entities/vendor.entity';
+import { CreateVendorDto } from 'src/dtos/vendors.dto';
+import { Vendor } from 'src/entities/mysql/vendor.entity';
 
 @Controller('vendors')
 export class VendorsController {
@@ -18,7 +18,7 @@ export class VendorsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Vendor> {
-    return this.vendorsService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Vendor | null> {
+    return await this.vendorsService.findOne(+id);
   }
 }
