@@ -26,3 +26,14 @@ export type JWTPayLoad<T> = T & JwtBasePayload;
 export type RequestWithJWTObject = Request & { user: JWTObject };
 
 export type JWTObjectT = keyof JWTObject;
+
+export type ResponseObject<T = object> = Response<{
+  response: string | T;
+  code: HttpStatus;
+}>;
+
+interface CookieOptionsI {
+  name: string;
+  value: string;
+  options?: CookieOptions;
+}
