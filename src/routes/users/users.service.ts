@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/mysql/users.entity';
 import { CreateUserDto, UserLoginDto } from 'src/dtos/users.dto';
@@ -7,11 +6,12 @@ import { PasswordService } from 'src/shared/services/password.service';
 import { isEmailRegistered } from 'src/helpers/helpers';
 import { JwtService } from '@nestjs/jwt';
 import { Exceptions } from 'src/types/enums';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
+    @InjectSqlRepository(User)
     private usersRepository: Repository<User>,
     private readonly passwordService: PasswordService,
     private readonly jwtService: JwtService,

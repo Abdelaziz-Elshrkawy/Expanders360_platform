@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Match } from 'src/entities/mysql/match.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Document } from 'src/entities/mongodb/document.schema';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
 export class AnalyticsService {
   constructor(
-    @InjectRepository(Match)
+    @InjectSqlRepository(Match)
     private matchRepository: Repository<Match>,
     @InjectModel(Document.name) private documentModel: Model<Document>,
   ) {}

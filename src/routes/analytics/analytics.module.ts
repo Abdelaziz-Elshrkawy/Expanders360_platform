@@ -5,10 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Match } from 'src/entities/mysql/match.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Document, DocumentSchema } from 'src/entities/mongodb/document.schema';
+import { sql_database_type } from 'src/config/env';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Match]),
+    TypeOrmModule.forFeature([Match], sql_database_type),
     MongooseModule.forFeature([
       { name: Document.name, schema: DocumentSchema },
     ]),

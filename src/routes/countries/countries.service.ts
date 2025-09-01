@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Country } from 'src/entities/mysql/country.entity';
 import { CreateCountryDto } from 'src/dtos/country.dto';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
 export class CountriesService {
   constructor(
-    @InjectRepository(Country)
+    @InjectSqlRepository(Country)
     private countriesRepository: Repository<Country>,
   ) {}
 

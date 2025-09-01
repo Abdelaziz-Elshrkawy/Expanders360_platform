@@ -1,22 +1,22 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from 'src/entities/mysql/project.entity';
 import { EmailService } from 'src/tasks/emails.service';
 import { Match } from 'src/entities/mysql/match.entity';
 import { Vendor } from 'src/entities/mysql/vendor.entity';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
 
   constructor(
-    @InjectRepository(Project)
+    @InjectSqlRepository(Project)
     private projectRepository: Repository<Project>,
-    @InjectRepository(Vendor)
+    @InjectSqlRepository(Vendor)
     private vendorRepository: Repository<Vendor>,
-    @InjectRepository(Match)
+    @InjectSqlRepository(Match)
     private matchRepository: Repository<Match>,
     private emailService: EmailService,
   ) {}

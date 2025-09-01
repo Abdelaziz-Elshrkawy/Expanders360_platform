@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 import { CreateVendorDto, UpdateVendorDto } from 'src/dtos/vendors.dto';
 import { Vendor } from 'src/entities/mysql/vendor.entity';
 import { Repository } from 'typeorm';
@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class VendorsService {
   constructor(
-    @InjectRepository(Vendor)
+    @InjectSqlRepository(Vendor)
     private vendorsRepository: Repository<Vendor>,
   ) {}
 

@@ -1,0 +1,9 @@
+{
+    "dev":{
+        "driver": {"ENV": "sql_database_type"},
+        "host": {"ENV":"sql_database_host"},
+        "database": {"ENV":"sql_database_name"},
+        "user": {"ENV": "sql_database_username"},
+        "password": {"ENV": "sql_database_password"}
+    }
+}

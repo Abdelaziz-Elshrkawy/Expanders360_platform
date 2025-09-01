@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Service } from 'src/entities/mysql/service.entity';
+import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
 export class ServicesService {
   constructor(
-    @InjectRepository(Service)
+    @InjectSqlRepository(Service)
     private readonly serviceRepository: Repository<Service>,
   ) {}
 
