@@ -17,7 +17,7 @@ export class Vendor {
   name: string;
 
   @Column({ type: 'float', default: 0 })
-  rating: number;
+  rate: number;
 
   @Column({ name: 'response_sla_hours', type: 'int', default: 24 })
   responseSlaHours: number;

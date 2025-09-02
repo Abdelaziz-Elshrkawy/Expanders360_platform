@@ -15,7 +15,7 @@ export class User {
   @Column({
     type: 'enum',
     enum: RolesE,
-    default: RolesE.CLIeNET,
+    default: RolesE.CLIENT,
   })
   role: RolesE;
 }

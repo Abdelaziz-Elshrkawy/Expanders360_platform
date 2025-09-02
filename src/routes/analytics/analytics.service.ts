@@ -15,31 +15,30 @@ export class AnalyticsService {
   ) {}
 
   async getTopVendors() {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const monthAgo = new Date();
+    monthAgo.setDate(monthAgo.getDate() - 30);
 
     const topVendors = await this.matchRepository
       .createQueryBuilder('match')
       .select([
-        'match.vendor',
+        'vendor.name',
         'AVG(match.score) as averageScore',
         'country.name',
       ])
       .leftJoin('match.vendor', 'vendor')
       .leftJoin('vendor.countriesSupported', 'country')
-      .where('match.createdAt >= :thirtyDaysAgo', { thirtyDaysAgo })
+      .where('match.createdAt >= :monthAgo', { monthAgo })
       .groupBy('country.id')
       .addGroupBy('match.vendor')
       .orderBy('averageScore', 'DESC')
       .limit(3)
       .getRawMany();
 
-    // Fetch document counts per country from MongoDB
     const countryDocumentCounts = await this.documentModel
       .aggregate([
         {
           $lookup: {
-            from: 'projects', // Assuming you have a projects collection
+            from: 'projects',
             localField: 'projectId',
             foreignField: '_id',
             as: 'project',

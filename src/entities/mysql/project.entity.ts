@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Service } from './service.entity';
 import { User } from './users.entity';
+import { Country } from './country.entity';
 
 @Entity('projects')
 export class Project {
@@ -16,10 +17,11 @@ export class Project {
   id: number;
 
   @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'client_id' })
+  @JoinColumn({ name: 'user_id' })
   client: User;
 
-  @Column()
+  @ManyToOne(() => Country)
+  @JoinColumn({ name: 'country_id' })
   country: string;
 
   @ManyToMany(() => Service)

@@ -1,13 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Service } from './service.entity';
+import { Vendor } from './vendor.entity';
 
 @Entity('vendors_services')
 export class VendorsServices {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  vendor_id: number;
+  @ManyToOne(() => Vendor)
+  @JoinColumn({ name: 'vendor_id' })
+  vendor_id: Vendor;
 
-  @Column()
-  service_id: number;
+  @ManyToOne(() => Service)
+  @JoinColumn({ name: 'service_id' })
+  service: Service;
 }

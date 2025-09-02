@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Country } from './country.entity';
 import { Vendor } from './vendor.entity';
 
@@ -7,9 +7,11 @@ export class VendorsCountries {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Vendor, (vendor) => vendor.countriesSupported)
+  @ManyToOne(() => Vendor)
+  @JoinColumn({ name: 'vendor_id' })
   vendor: Vendor;
 
-  @ManyToOne(() => Vendor, (country) => country.countriesSupported)
+  @ManyToOne(() => Country)
+  @JoinColumn({ name: 'country_id' })
   country: Country;
 }

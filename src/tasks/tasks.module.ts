@@ -12,5 +12,6 @@ import { sql_database_type } from 'src/config/env';
     TypeOrmModule.forFeature([Project, Vendor, Match], sql_database_type),
   ],
   providers: [TasksService, EmailService],
+  exports: [TasksService],
 })
 export class TasksModule {}

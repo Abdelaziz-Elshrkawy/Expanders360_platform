@@ -8,6 +8,7 @@ import { UsersModule } from './routes/users/users.module';
 import { VendorsModule } from './routes/vendors/vendors.module';
 import { ServicesModule } from './routes/services/services.module';
 import { Module } from '@nestjs/common';
+import { ProjectsModule } from './routes/projects/projects.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Module } from '@nestjs/common';
     DocumentsModule,
     AnalyticsModule,
     TasksModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
