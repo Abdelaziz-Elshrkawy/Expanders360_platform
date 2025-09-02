@@ -6,6 +6,7 @@ import { EmailModule } from './modules/email.module';
 import { JWTModule } from './modules/jwt.module';
 import { throttlerModule } from './modules/throttler.module';
 import { CacheService } from './services/cache.service';
+import { schedulerModule } from './modules/scheduler.module';
 
 @Global()
 @Module({
@@ -15,6 +16,7 @@ import { CacheService } from './services/cache.service';
     sqlConnection,
     mongodbConnection,
     throttlerModule,
+    schedulerModule,
   ],
   providers: [
     CacheService,
@@ -30,6 +32,7 @@ import { CacheService } from './services/cache.service';
     sqlConnection,
     mongodbConnection,
     throttlerModule,
+    schedulerModule,
   ],
 })
 export class GlobalModule {}

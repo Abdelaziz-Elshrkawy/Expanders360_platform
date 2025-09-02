@@ -6,6 +6,7 @@ import {
   Body,
   Patch,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { TasksService } from '../../tasks/tasks.service';
@@ -47,7 +48,7 @@ export class ProjectsController {
   async rebuildMatches(@Param('id') id: string) {
     const project = await this.projectsService.findOne(+id);
     if (!project) {
-      throw new Error(`Project with ID ${id} not found`);
+      throw new BadRequestException(`Project with ID ${id} not found`);
     }
     await this.tasksService.rebuildMatches(project);
     return { message: `Matches rebuilt for project ${id}` };

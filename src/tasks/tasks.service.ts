@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
 import { Project } from 'src/entities/mysql/project.entity';
@@ -18,8 +18,7 @@ export class TasksService {
     private vendorRepository: Repository<Vendor>,
     @InjectSqlRepository(Match)
     private matchRepository: Repository<Match>,
-    @Inject(forwardRef(() => EmailService))
-    private emailService: EmailService, // Inject EmailService
+    private emailService: EmailService,
   ) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
@@ -31,7 +30,6 @@ export class TasksService {
     });
 
     for (const project of activeProjects) {
-      // Rebuild matches for the project
       await this.rebuildMatches(project);
     }
   }
