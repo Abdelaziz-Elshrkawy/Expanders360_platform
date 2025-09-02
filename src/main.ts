@@ -5,6 +5,7 @@ import { CookiesName } from './types/enums';
 import { HttpStatus } from '@nestjs/common';
 import { json, NextFunction, Request, Response } from 'express';
 import * as cookieParser from 'cookie-parser';
+import { port } from './config/env';
 
 export const { doubleCsrfProtection, generateCsrfToken } = doubleCsrf({
   cookieName: CookiesName.CSRF_Token,
@@ -20,8 +21,8 @@ export const { doubleCsrfProtection, generateCsrfToken } = doubleCsrf({
 
 void (async function () {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3100);
-
+  await app.listen(port as string);
+  console.log(port)
   app.enableCors({
     // for cookies
     credentials: true,

@@ -1,32 +1,33 @@
 # Expanders360 Platform
 
-## Database Schema:
+## Database Schema: 
+- Provided in the [schema.sql](./schema.sql) file
+- to import it run [create_db.sh](./create_db.sh) make sure to enable execution to this file by:
+```bash
+    sudo chmod +x ./create_db.sh
+```
+- then run it and make sure to be in the same directory as the file:
+```bash
+    ./create_db.sh
+```
 
-- base tables:
-  - users table: (holds all users data for login logic)
-    - id
-    - email
-    - password
-    - role (admin, client)
-  - vendors: (holds vendors basic data)
-    - id
-    - name
-    - rate
-    - response_sales_hours
+- on windows just run [create_db.bat](./create_db.bat):
+```pwsh
+    ./create_db.bat
+```
 
-- static value holder table: (holds values will be shared accorss all users )
-  - services: (hold service names that can be prvided by any vendor)
-    - id
-    - name
-  - countires:
-    - id
-    - name
+## installation:
 
-- conjunction tables:
-  - vendors_services:
-    - vendor_id
-    - service_id
+- make sure to file the [.env.example](./.env.example) and rename it to .env
 
-  - vendors_countires:
-    - vendor_id
-    - country_id
+- run 
+```bash
+pnpm i
+pnpm i -g db-migrate
+db-migrate up
+pnpm start:dev
+```
+
+## routes:
+- http://localhost:3500/analytics/top-vendors
+- http://localhost:3500/projects/:id/matches/rebuild

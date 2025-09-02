@@ -1,3 +1,6 @@
+
+
+
 create table users (
     id bigint AUTO_INCREMENT,
     email VARCHAR(255) not null UNIQUE,
