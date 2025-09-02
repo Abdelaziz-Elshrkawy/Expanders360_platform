@@ -27,6 +27,7 @@ export class TasksService {
     // Logic to refresh matches for active projects
     const activeProjects = await this.projectRepository.find({
       where: { status: 'active' },
+      relations: ['country', 'client', 'servicesNeeded'],
     });
 
     for (const project of activeProjects) {
@@ -41,14 +42,14 @@ export class TasksService {
       .createQueryBuilder('vendor')
       .leftJoinAndSelect('vendor.countriesSupported', 'country')
       .leftJoinAndSelect('vendor.servicesOffered', 'service')
-      .where('country.name = :country', { country: project.country })
+      .where('country.name = :country', { country: project.country.name })
       .getMany();
 
     for (const vendor of vendors) {
       const servicesOverlap = project.servicesNeeded.filter((service) =>
-        vendor.servicesOffered.some(
-          (vendorService) => vendorService.id === service.id,
-        ),
+        vendor.servicesOffered.some((vendorService) => {
+          return vendorService.id === service.id;
+        }),
       ).length;
 
       if (servicesOverlap > 0) {

@@ -19,12 +19,12 @@ export class ProjectsService {
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    const { clientId, country, servicesNeeded, budget, status } =
+    const { clientId, countryId, servicesNeeded, budget, status } =
       createProjectDto;
 
     const project = this.projectRepository.create({
       client: { id: clientId },
-      country,
+      country_id: countryId,
       servicesNeeded: servicesNeeded.map((id) => ({ id }) as Service),
       budget,
       status,
@@ -42,7 +42,7 @@ export class ProjectsService {
   async findOne(id: number): Promise<Project | null> {
     return await this.projectRepository.findOne({
       where: { id },
-      relations: ['client', 'servicesNeeded'],
+      relations: ['client', 'servicesNeeded', 'country'],
     });
   }
 

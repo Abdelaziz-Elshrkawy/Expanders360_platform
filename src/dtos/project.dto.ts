@@ -7,7 +7,7 @@ export class CreateProjectDto {
 
   @IsNotEmpty()
   @IsString()
-  country: string;
+  countryId: number;
 
   @IsNotEmpty()
   servicesNeeded: number[];

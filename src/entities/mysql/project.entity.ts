@@ -16,13 +16,16 @@ export class Project {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  country_id: number;
+
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   client: User;
 
-  @ManyToOne(() => Country)
+  @ManyToOne(() => Country, (country) => country.id)
   @JoinColumn({ name: 'country_id' })
-  country: string;
+  country: Country;
 
   @ManyToMany(() => Service)
   @JoinTable({
