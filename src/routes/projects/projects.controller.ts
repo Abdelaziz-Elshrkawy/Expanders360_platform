@@ -7,11 +7,18 @@ import {
   Patch,
   Delete,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { TasksService } from '../../tasks/tasks.service';
 import { CreateProjectDto, UpdateProjectDto } from 'src/dtos/project.dto';
+import { Role } from 'src/decorators/classes-methods/role.decorator';
+import { AuthorizationGuard } from 'src/guards/authorization.guard';
+import { RoleGuard } from 'src/guards/role.guard';
+import { RolesE } from 'src/types/enums';
 
+@Role([RolesE.CLIENT])
+@UseGuards(AuthorizationGuard, RoleGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(
@@ -44,6 +51,7 @@ export class ProjectsController {
     return this.projectsService.remove(+id);
   }
 
+  @Role([RolesE.ADMIN, RolesE.CLIENT])
   @Post(':id/matches/rebuild')
   async rebuildMatches(@Param('id') id: string) {
     const project = await this.projectsService.findOne(+id);

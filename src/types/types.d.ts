@@ -1,3 +1,5 @@
+import { CookieOptions } from 'express';
+
 export type OrmDatabaseType =
   | 'mysql'
   | 'postgres'

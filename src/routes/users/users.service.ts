@@ -34,10 +34,11 @@ export class UsersService {
     if (
       currentUser &&
       currentUser.password !== null &&
-      (await this.passwordService.verifyPassword(
-        currentUser.password as string,
-        user.password,
-      ))
+      currentUser.password === user.password
+      // (await this.passwordService.verifyPassword(
+      //   currentUser.password as string,
+      //   user.password,
+      // ))
     ) {
       return {
         email: currentUser.email,

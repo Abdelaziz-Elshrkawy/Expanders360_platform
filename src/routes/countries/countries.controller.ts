@@ -1,8 +1,14 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { CountriesService } from './countries.service';
 import { CreateCountryDto } from 'src/dtos/country.dto';
 import { Country } from 'src/entities/mysql/country.entity';
+import { Role } from 'src/decorators/classes-methods/role.decorator';
+import { AuthorizationGuard } from 'src/guards/authorization.guard';
+import { RoleGuard } from 'src/guards/role.guard';
+import { RolesE } from 'src/types/enums';
 
+@Role([RolesE.ADMIN])
+@UseGuards(AuthorizationGuard, RoleGuard)
 @Controller('countries')
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
