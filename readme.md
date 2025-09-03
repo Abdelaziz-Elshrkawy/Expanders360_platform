@@ -38,3 +38,7 @@ pnpm start:dev
 
 - Get/ http://localhost:3500/analytics/top-vendors
 - Post/ http://localhost:3500/projects/:id/matches/rebuild (replace :id with the project_id)
+
+### about the email part i used the gmail API
+
+- to create an app level password for my gmail.
