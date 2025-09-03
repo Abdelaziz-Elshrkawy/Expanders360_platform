@@ -1,0 +1,148 @@
+{
+  "info": {
+    "_postman_id": "25765d90-be0a-4d86-aec6-84ab85c34ad5",
+    "name": "expanders360",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39644862"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"client2@example.com\",\r\n  \"password\": \"hashed_pass3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3600/users/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3600",
+              "path": ["users", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "csrf",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{jwt}}",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"abdelaziz\",\r\n    \"role\": \"student\",\r\n    \"institute_id\": 1,\r\n    \"email\":\"a@bc.com\",\r\n    \"password\": \"Qwerty123@#\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3500/users/csrf",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3500",
+              "path": ["users", "csrf"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "analytics",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          "pm.request.headers.add({key: 'x-csrf-token', value: pm.environment.get('csrf') })\r",
+          "console.log(pm.environment.get('csrf'))"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          "if (pm.request.url.toString() === 'http://localhost:3600/users/csrf') {\r",
+          "  try {\r",
+          "    const data = pm.response.json();\r",
+          "    const csrf = data.response;\r",
+          "\r",
+          "    console.log(\"Extracted CSRF token:\", csrf);\r",
+          "    console.log(\"Type of token:\", typeof csrf);\r",
+          "\r",
+          "    if (csrf) {\r",
+          "      pm.environment.set(\"csrf\", csrf);\r",
+          "      console.log(\"Set csrf variable to:\", csrf);\r",
+          "    } else {\r",
+          "      console.warn(\"CSRF token is falsy (null, undefined, or empty).\");\r",
+          "    }\r",
+          "    console.log(\"Variable value after set:\", pm.environment.get(\"csrf\"));\r",
+          "  } catch (error) {\r",
+          "    console.error(\"Failed to parse JSON response:\", error);\r",
+          "  }\r",
+          "}\r",
+          ""
+        ]
+      }
+    }
+  ]
+}

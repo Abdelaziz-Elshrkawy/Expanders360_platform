@@ -15,7 +15,14 @@ export const { doubleCsrfProtection, generateCsrfToken } = doubleCsrf({
     httpOnly: true,
     secure: true,
     sameSite: 'strict',
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge:
+      1000 *
+      // seconds
+      60 *
+      // minutes
+      60 *
+      // hours
+      24,
   },
 });
 
@@ -34,7 +41,7 @@ void (async function () {
   });
 
   app.use(cookieParser());
-  // app.use(csrfMiddleware);
+  app.use(csrfMiddleware);
   app.use(json());
   await app.listen(port as string);
 })();
@@ -45,7 +52,11 @@ void (async function () {
 function csrfMiddleware(req: Request, res: Response, next: NextFunction) {
   doubleCsrfProtection(req, res, (err?: any) => {
     // the `EBADCSRFTOKEN` error string got it from the source code of the package
-    console.log(req.cookies, req.headers['x-csrf-token']);
+    // console.log(req.cookies['_csrf_token_']);
+    console.log(req.headers['x-csrf-token']);
+
+    console.log(err);
+
     if (err && (err as CsrfErrorConfig).code === 'EBADCSRFTOKEN') {
       return res.status(HttpStatus.FORBIDDEN).json({
         statusCode: HttpStatus.FORBIDDEN,

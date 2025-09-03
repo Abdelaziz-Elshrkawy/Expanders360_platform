@@ -52,4 +52,8 @@ first login (password is plain for the sake of this task but password hashing is
 - Get http://localhost:3600/analytics/top-vendors
 - Post http://localhost:3600/projects/:id/matches/rebuild (replace :id with the project_id)
 
-- the app contain csrf also but disabled
+- i've added [expanders360.postman_collection.json](./expanders360.postman_collection.json) which is a postman collection with the needed requests.
+
+- first request a csrf
+- then login
+- then use the provided requests
