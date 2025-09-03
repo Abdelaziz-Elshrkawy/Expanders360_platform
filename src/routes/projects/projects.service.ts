@@ -4,7 +4,6 @@ import { Project } from '../../entities/mysql/project.entity';
 import { CreateProjectDto } from '../../dtos/project.dto';
 import { UpdateProjectDto } from '../../dtos/project.dto';
 import { Service } from '../../entities/mysql/service.entity';
-import { Country } from '../../entities/mysql/country.entity';
 import { InjectSqlRepository } from 'src/decorators/injection/repository.decorator';
 
 @Injectable()
@@ -12,10 +11,6 @@ export class ProjectsService {
   constructor(
     @InjectSqlRepository(Project)
     private projectRepository: Repository<Project>,
-    @InjectSqlRepository(Service)
-    private serviceRepository: Repository<Service>,
-    @InjectSqlRepository(Country)
-    private countryRepository: Repository<Country>,
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
