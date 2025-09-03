@@ -8,11 +8,11 @@ export class EmailService {
 
   async sendNewMatchNotification(project: any, vendor: any, score: number) {
     const mailOptions: ISendMailOptions = {
-      to: project.client.email, // Assuming project has a client with an email
+      to: project.client.email,
       subject: 'New Vendor Match!',
       text: `A new vendor has been matched to your project ${project.id}: ${vendor.name} with a score of ${score}`,
     };
-
+    console.log(project.client.email);
     try {
       const info = await this.mailerService.sendMail(mailOptions);
       this.logger.log(`Email sent: ${info.messageId}`);
