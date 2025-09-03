@@ -8,13 +8,16 @@ import {
   HttpStatus,
   Res,
   UnauthorizedException,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UserLoginDto } from 'src/dtos/users.dto';
 import { User } from 'src/entities/mysql/users.entity';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { CookiesName, Exceptions } from 'src/types/enums';
 import { ResponseObjectGenerator } from 'src/helpers/helpers';
+import { Throttle } from '@nestjs/throttler';
+import { generateCsrfToken } from 'src/main';
 
 @Controller('users')
 export class UsersController {
@@ -30,6 +33,7 @@ export class UsersController {
         institute_id: number;
         jwt: string;
       };
+      console.log(result);
       if (result) {
         const { jwt, ...userData } = result;
         ResponseObjectGenerator<
@@ -62,7 +66,17 @@ export class UsersController {
       }
     }
   }
-
+  @Get('csrf')
+  @Throttle({ default: { limit: 100, ttl: 60 * 1000 } })
+  getCsrfToken(@Req() req: Request, @Res() res: Response) {
+    try {
+      const token = generateCsrfToken(req, res);
+      ResponseObjectGenerator(token, HttpStatus.OK, res);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_e) {
+      throw new BadRequestException();
+    }
+  }
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User | User[]> {
     return await this.usersService.create(createUserDto);
