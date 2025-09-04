@@ -40,7 +40,8 @@ pnpm start:dev
 
 ## how to test the app:
 
-first login (password is plain for the sake of this task but password hashing is provided also):
+- first request a csrf
+- login (password is plain for the sake of this task but password hashing is provided also):
 
 - url : Post http://localhost:3600/user/login
 
@@ -54,6 +55,6 @@ first login (password is plain for the sake of this task but password hashing is
 
 - i've added [expanders360.postman_collection.json](./expanders360.postman_collection.json) which is a postman collection with the needed requests.
 
-- first request a csrf
-- then login
+
+- login
 - then use the provided requests
