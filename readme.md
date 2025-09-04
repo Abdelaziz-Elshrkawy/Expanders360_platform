@@ -1,60 +1,92 @@
 # Expanders360 Platform
 
-## Database Schema:
+## Database Setup
 
-- Provided in the [schema.sql](./schema.sql) file
-- to import it run [create_db.sh](./create_db.sh) make sure to enable execution to this file by:
-
-```bash
-    sudo chmod +x ./create_db.sh
-```
-
-- then run it and make sure to be in the same directory as the file:
+Schema is provided in [`schema.sql`](./schema.sql).  
+To import it, run the shell script [`create_db.sh`](./create_db.sh):
 
 ```bash
-    ./create_db.sh
+sudo chmod +x ./create_db.sh
+./create_db.sh
 ```
 
-- on windows just run [create_db.bat](./create_db.bat):
+On Windows, just run the batch file:
 
 ```pwsh
-    ./create_db.bat
+./create_db.bat
 ```
 
-## installation:
+## Installation
 
-- make sure to fill the [.env.example](./.env.example) and rename it to .env
+Copy and configure the environment file:
 
-- run
+```bash
+cp .env.example .env
+```
+
+Install dependencies:
 
 ```bash
 pnpm i
+```
+
+Install the migration tool globally:
+
+```bash
 pnpm i -g db-migrate
+```
+
+Run database migrations:
+
+```bash
 db-migrate up
+```
+
+Start the development server:
+
+```bash
 pnpm start:dev
 ```
 
-## about the email part i used the gmail API
+## Email Integration
 
-- to create an app level password for my gmail.
+Uses Gmail API for sending emails.  
+Requires creating an App Password from your Gmail account.
 
-## how to test the app:
+## Testing the App
 
-- first request a csrf
-- login (password is plain for the sake of this task but password hashing is provided also):
+Request a CSRF token, then login (for demo purposes, password is plain text, though hashing is also implemented).
 
-- url : Post http://localhost:3600/user/login
+**Endpoint:**
 
-- client2@example.com
-- hashed_pass3
+```
+POST http://localhost:3600/user/login
+```
 
-## routes:
+**Test Credentials:**
+- Email: `client2@example.com`
+- Password: `hashed_pass3`
 
-- Get http://localhost:3600/analytics/top-vendors
-- Post http://localhost:3600/projects/:id/matches/rebuild (replace :id with the project_id)
+## API Routes
 
-- i've added [expanders360.postman_collection.json](./expanders360.postman_collection.json) which is a postman collection with the needed requests.
+Get Top Vendors:
 
+```
+GET http://localhost:3600/analytics/top-vendors
+```
 
-- login
-- then use the provided requests
+Rebuild Project Matches:
+
+```
+POST http://localhost:3600/projects/:id/matches/rebuild
+```
+
+Replace `:id` with the project ID.
+
+## Postman Collection
+
+A ready-to-use Postman collection is provided:  
+[`expanders360.postman_collection.json`](./expanders360.postman_collection.json)
+
+1. Login using the credentials.  
+2. Use the prepared requests to interact with the API.
