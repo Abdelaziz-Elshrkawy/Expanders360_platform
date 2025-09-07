@@ -1,7 +1,7 @@
 {
   "info": {
-    "_postman_id": "25765d90-be0a-4d86-aec6-84ab85c34ad5",
-    "name": "expanders360",
+    "_postman_id": "ae347428-d39b-4525-a928-81b2db04b632",
+    "name": "expanders360 Copy",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "39644862"
   },
@@ -17,7 +17,8 @@
               {
                 "key": "x-csrf-token",
                 "value": "{{csrfToken}}",
-                "type": "text"
+                "type": "text",
+                "disabled": true
               }
             ],
             "body": {
@@ -75,10 +76,10 @@
               "raw": "{\r\n    \"name\": \"abdelaziz\",\r\n    \"role\": \"student\",\r\n    \"institute_id\": 1,\r\n    \"email\":\"a@bc.com\",\r\n    \"password\": \"Qwerty123@#\"\r\n}"
             },
             "url": {
-              "raw": "http://localhost:3500/users/csrf",
+              "raw": "http://localhost:3600/users/csrf",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "3500",
+              "port": "3600",
               "path": ["users", "csrf"]
             }
           },
@@ -90,15 +91,29 @@
       "name": "analytics",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3600/analytics/top-vendors",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3600",
+          "path": ["analytics", "top-vendors"]
+        }
       },
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "rebuild",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3600/projects/1/matches/rebuild",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3600",
+          "path": ["projects", "1", "matches", "rebuild"]
+        }
       },
       "response": []
     }
