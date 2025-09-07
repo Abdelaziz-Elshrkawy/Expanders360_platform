@@ -52,10 +52,6 @@ void (async function () {
 function csrfMiddleware(req: Request, res: Response, next: NextFunction) {
   doubleCsrfProtection(req, res, (err?: any) => {
     // the `EBADCSRFTOKEN` error string got it from the source code of the package
-    // console.log(req.cookies['_csrf_token_']);
-    console.log(req.headers['x-csrf-token']);
-
-    console.log(err);
 
     if (err && (err as CsrfErrorConfig).code === 'EBADCSRFTOKEN') {
       return res.status(HttpStatus.FORBIDDEN).json({
